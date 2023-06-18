@@ -2,5 +2,26 @@
 
 echo "Hello! I am pre-commit hook"
 
+if [ "$(git config --get devsecops.protect.enabled)" != "true" ]; then
+    echo "Skipping protect by gitleaks..."
+    exit 0
+fi
+echo "Enforcing DevSecOps protect..."
+
+set -e
+SCRIPT_DIR=$(dirname "$0")
+HOOKS_PATH=$(git config --get core.hooksPath 2>/dev/null || echo ".git/hooks")
+
+SCRIPT_DIR=$(dirname "$0")
+
+if ! "$SCRIPT_DIR/gitleaks" version
+then
+    source "$LOCAL_DEVSECOPS/shiftleft/gitleaks-install.sh"
+fi
+
+$(git rev-parse --show-toplevel)/$HOOKS_PATH/gitleaks protect --staged --source $(git rev-parse --show-toplevel) -v
+
 echo "PREVENT COMMITS WHILE DEBUGGING"
 exit 1
+
+echo "Bye, thanks! DevSecOps pre-commit protection passed"
