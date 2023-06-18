@@ -1,11 +1,9 @@
 #!/bin/sh
 
-echo "Hello! I am gitleaks curl-pipe-sh installer."
+echo "Hello! I am ensuring gitleaks installation."
 
 set -e
-SCRIPT_DIR=$(dirname "$0")
-SCRIPT_DIR=$(dirname -- "$( readlink -f -- "$0"; )";)
-echo "$SCRIPT_DIR"
+SCRIPT_DIR=$1
 
 # Get the current operating system and architecture
 OS=$(uname -s)
@@ -16,11 +14,10 @@ is_windows() {
         *) return 1;;
     esac
 }
-GITLEAKS_VERSION="8.17.0"
-
 
 if ! "$SCRIPT_DIR/gitleaks" version
 then
+    GITLEAKS_VERSION="8.17.0"
     GITLEAKS_BASE_URL="https://github.com/gitleaks/gitleaks/releases/download/v$GITLEAKS_VERSION"
 
     # Define the gitleaks binary URL based on the OS and ARCH
@@ -82,3 +79,5 @@ then
 
     cd "$CURRENT_DIR"
 fi
+
+echo "Bye, thanks! Installation of gitleaks ensured."

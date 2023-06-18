@@ -9,19 +9,16 @@ fi
 echo "Enforcing DevSecOps protect..."
 
 set -e
-SCRIPT_DIR=$(dirname "$0")
-HOOKS_PATH=$(git config --get core.hooksPath 2>/dev/null || echo ".git/hooks")
+SCRIPT_DIR=$1
+LOCAL_DEVSECOPS=$1/kbot-devsecops/shiftleft
+SOURCE_PATH=$(git rev-parse --show-toplevel)
+echo "$SOURCE_PATH"
 
-SCRIPT_DIR=$(dirname "$0")
-
-if ! "$SCRIPT_DIR/gitleaks" version
+if ! "$LOCAL_DEVSECOPS/gitleaks" version
 then
-    source "$LOCAL_DEVSECOPS/shiftleft/gitleaks-install.sh"
+    . "$LOCAL_DEVSECOPS/gitleaks-install.sh" "$LOCAL_DEVSECOPS"
 fi
 
-$(git rev-parse --show-toplevel)/$HOOKS_PATH/gitleaks protect --staged --source $(git rev-parse --show-toplevel) -v
+"$LOCAL_DEVSECOPS/gitleaks" protect --staged --source "$SOURCE_PATH" -v
 
-echo "PREVENT COMMITS WHILE DEBUGGING"
-exit 1
-
-echo "Bye, thanks! DevSecOps pre-commit protection passed"
+echo "Bye, thanks! DevSecOps pre-commit protection passed."
