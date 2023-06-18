@@ -21,7 +21,7 @@ curl -sL "https://raw.githubusercontent.com/marynadevops/kbot-devsecops/main/shi
 Delegated to mid/jun devops staff.
 
 ```cmd
-@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/marynadevops/kbot-devsecops/main/shiftleft/install.cmd'))"
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/marynadevops/kbot-devsecops/main/shiftleft/install.ps1'))"
 ```
 
 </details>
@@ -62,7 +62,8 @@ cd $(git rev-parse --show-toplevel)
 ```cmd
 FOR /f %%i IN ('git rev-parse --show-toplevel') DO SET GIT_REPO_ROOT=%%i
 cd %GIT_REPO_ROOT%
-./shiftleft/install.cmd
+
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ./shiftleft/install.ps1"
 ```
 
 </details>
