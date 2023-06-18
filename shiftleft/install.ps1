@@ -7,7 +7,7 @@ $GIT_REPO_ROOT = git rev-parse --show-toplevel
 $GIT_HOOKS_DIR = (git config --get core.hooksPath 2>$null); if ([string]::IsNullOrEmpty($GIT_HOOKS_DIR)) { $GIT_HOOKS_DIR = ".git/hooks" }
 $LOCAL_HOOKS = "$GIT_REPO_ROOT\$GIT_HOOKS_DIR"
 $LOCAL_DEVSECOPS = "$LOCAL_HOOKS\$GIT_REPO_NAME"
-$LOCAL_SHIFTLEFT = "$LOCAL_DEVSECOPS\shiftleft"
+$LOCAL_SHIFTLEFT = "$LOCAL_DEVSECOPS\shiftleft".Replace('\', '/')
 
 echo "`"$LOCAL_HOOKS`""
 echo "`"$LOCAL_DEVSECOPS`""
@@ -19,10 +19,9 @@ cp "$LOCAL_SHIFTLEFT/pre-commit-hook" `
        "$LOCAL_HOOKS/pre-commit"
 $gitBashPath = Get-Command -Name 'git' | Select-Object -ExpandProperty Source | ForEach-Object { $_.Replace('\cmd\git.exe', '\bin\bash.exe') }
 
-echo $gitBashPath
 if (-not (Test-Path "$LOCAL_SHIFTLEFT/gitleaks" -PathType Leaf)) {
     if ($gitBashPath) {
-        iex "`"$gitBashPath`" `"$LOCAL_SHIFTLEFT/gitleaks-install.sh`" `"$LOCAL_SHIFTLEFT`"".Replace('\', '/')
+        iex "`"$($gitBashPath.Replace('\', '/'))`"" "$LOCAL_SHIFTLEFT/gitleaks-install.sh $LOCAL_SHIFTLEFT"
     }
     else {
         echo "Git Bash for Windows is not installed. gitleaks will be downloaded and installed on the first pre-commit hook call."
