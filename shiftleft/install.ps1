@@ -21,7 +21,13 @@ $gitBashPath = Get-Command -Name 'git' | Select-Object -ExpandProperty Source | 
 
 if (-not (Test-Path "$LOCAL_SHIFTLEFT/gitleaks" -PathType Leaf)) {
     if ($gitBashPath) {
-        iex "`"$($gitBashPath.Replace('\', '/'))`"" "$LOCAL_SHIFTLEFT/gitleaks-install.sh $LOCAL_SHIFTLEFT"
+        $processStartInfo = @{
+            FilePath = $gitBashPath.Replace('\', '/')
+            ArgumentList = @("$LOCAL_SHIFTLEFT/gitleaks-install.sh", "$LOCAL_SHIFTLEFT")
+            Wait = $true
+            NoNewWindow = $true
+        }
+        Start-Process @processStartInfo
     }
     else {
         echo "Git Bash for Windows is not installed. gitleaks will be downloaded and installed on the first pre-commit hook call."
