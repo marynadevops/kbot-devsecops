@@ -4,7 +4,7 @@
 
 ## Install DevScOps protection
 
-To enable DevSecOps protection in your development envoronment,
+To connect DevSecOps protection in your development envoronment,
 run the following command(s) in your local repo clone.
 
 ### Linux/MacOS/Git Bash for Windows (sh)
@@ -26,6 +26,25 @@ Delegated to mid/jun devops staff.
 
 </details>
 
+## Enable/disable DevSecOps protection
+
+To temporary disable DevSecOps protection, run the following command (unsafe):
+
+<details>
+  <summary>Disable</summary>
+
+```terminal
+git config devsecops.protect.enabled false
+```
+
+</details>
+
+Don't forget to enable it back using the following command:
+
+```terminal
+git config devsecops.protect.enabled true
+```
+
 ## Troubleshooting DevScOps protection
 
 <details>
@@ -33,7 +52,7 @@ Delegated to mid/jun devops staff.
 
 ### Modify and Debug
 
-Remember, cloned repo may not match your local non-pushed changes.
+Remember, repo cloned by the snipopets below may not match your local non-pushed changes.
 
 ```sh
 cd $(git rev-parse --show-toplevel)
