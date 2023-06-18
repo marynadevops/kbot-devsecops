@@ -4,6 +4,7 @@ echo "Hello! I am gitleaks curl-pipe-sh installer."
 
 set -e
 SCRIPT_DIR=$(dirname "$0")
+SCRIPT_DIR=$(dirname -- "$( readlink -f -- "$0"; )";)
 echo "$SCRIPT_DIR"
 
 # Get the current operating system and architecture
