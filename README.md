@@ -2,18 +2,20 @@
 
 > <<--- Shifting Left. <<---
 
-## Install DevScOps protection
+## DevSecOps protection
+
+### Install DevSecOps protection
 
 To connect DevSecOps protection in your development envoronment,
 run the following command(s) in your local repo clone.
 
-### Linux/MacOS/Git Bash for Windows (sh)
+#### Linux/MacOS/Git Bash for Windows (sh)
 
 ```sh
 curl -sL "https://raw.githubusercontent.com/marynadevops/kbot-devsecops/main/shiftleft/install.sh" | sh
 ```
 
-### Windows (cmd)
+#### Windows (cmd)
 
 <details>
   <summary>Windows (cmd)</summary>
@@ -26,7 +28,7 @@ Delegated to mid/jun devops staff.
 
 </details>
 
-## Enable/disable DevSecOps protection
+### Enable/disable DevSecOps protection
 
 To temporary disable DevSecOps protection, run the following command (unsafe):
 
