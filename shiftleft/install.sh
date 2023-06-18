@@ -10,8 +10,8 @@ LOCAL_HOOKS=$GIT_REPO_ROOT/$GIT_HOOKS_DIR
 LOCAL_DEVSECOPS=$GIT_REPO_ROOT/$GIT_HOOKS_DIR/$GIT_REPO_NAME
 
 echo   "$LOCAL_HOOKS"
-ls     "$LOCAL_HOOKS"
-rm -rf "$LOCAL_DEVSECOPS"
+echo                                                     "$LOCAL_DEVSECOPS"
+rm -rf                                                   "$LOCAL_DEVSECOPS"
 git clone https://github.com/marynadevops/$GIT_REPO_NAME "$LOCAL_DEVSECOPS"
 rm -rf                                                   "$LOCAL_DEVSECOPS/.git"
 
