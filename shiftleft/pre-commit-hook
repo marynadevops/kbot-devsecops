@@ -10,15 +10,15 @@ echo "Enforcing DevSecOps protect..."
 
 set -e
 SCRIPT_DIR=$1
-LOCAL_DEVSECOPS=$1/kbot-devsecops/shiftleft
+LOCAL_SHIFTLEFT=$1/kbot-devsecops/shiftleft
 SOURCE_PATH=$(git rev-parse --show-toplevel)
 echo "$SOURCE_PATH"
 
-if ! "$LOCAL_DEVSECOPS/gitleaks" version
+if ! "$LOCAL_SHIFTLEFT/gitleaks" version
 then
-    . "$LOCAL_DEVSECOPS/gitleaks-install.sh" "$LOCAL_DEVSECOPS"
+    . "$LOCAL_SHIFTLEFT/gitleaks-install.sh" "$LOCAL_SHIFTLEFT"
 fi
 
-"$LOCAL_DEVSECOPS/gitleaks" protect --staged --source "$SOURCE_PATH" -v
+"$LOCAL_SHIFTLEFT/gitleaks" protect --staged --source "$SOURCE_PATH" -v
 
 echo "Bye, thanks! DevSecOps pre-commit protection passed."
