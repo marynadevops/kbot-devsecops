@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Hello! I am pre-commit hook"
+
+echo "PREVENT COMMITS WHILE DEBUGGING"
+exit 1
