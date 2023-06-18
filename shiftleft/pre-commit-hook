@@ -6,11 +6,11 @@ if [ "$(git config --get devsecops.protect.enabled)" != "true" ]; then
     echo "Skipping protect by gitleaks..."
     exit 0
 fi
-echo "Enforcing DevSecOps protect..."
+echo "Enforcing DevSecOps protection..."
 
 set -e
-SCRIPT_DIR=$1
-LOCAL_SHIFTLEFT=$1/kbot-devsecops/shiftleft
+LOCAL_HOOKS=(dirname "$0")
+LOCAL_SHIFTLEFT=$LOCAL_HOOKS/kbot-devsecops/shiftleft
 SOURCE_PATH=$(git rev-parse --show-toplevel)
 echo "$SOURCE_PATH"
 
@@ -19,6 +19,7 @@ then
     . "$LOCAL_SHIFTLEFT/gitleaks-install.sh" "$LOCAL_SHIFTLEFT"
 fi
 
+echo "Checling \"$SOURCE_PATH\" path..."
 "$LOCAL_SHIFTLEFT/gitleaks" protect --staged --source "$SOURCE_PATH" -v
 
 echo "Bye, thanks! DevSecOps pre-commit protection passed."
