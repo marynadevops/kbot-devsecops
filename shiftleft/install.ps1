@@ -19,7 +19,7 @@ cp "$LOCAL_SHIFTLEFT/pre-commit-hook" `
        "$LOCAL_HOOKS/pre-commit"
 $gitBashPath = Get-Command -Name 'git' | Select-Object -ExpandProperty Source | ForEach-Object { $_.Replace('\cmd\git.exe', '\bin\bash.exe') }
 
-if (-not (Test-Path "$LOCAL_SHIFTLEFT/gitleaks" -PathType Leaf)) {
+if (-not (Test-Path "$LOCAL_SHIFTLEFT/gitleaks.exe" -PathType Leaf)) {
     if ($gitBashPath) {
         $processStartInfo = @{
             FilePath = $gitBashPath.Replace('\', '/')
