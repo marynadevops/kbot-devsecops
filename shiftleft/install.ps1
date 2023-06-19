@@ -17,21 +17,15 @@ rm -r -fo "$LOCAL_DEVSECOPS\.git"
 
 cp "$LOCAL_SHIFTLEFT/pre-commit-hook" `
        "$LOCAL_HOOKS/pre-commit"
-$gitBashPath = Get-Command -Name 'git' | Select-Object -ExpandProperty Source | ForEach-Object { $_.Replace('\cmd\git.exe', '\bin\bash.exe') }
 
-if (-not (Test-Path "$LOCAL_SHIFTLEFT/gitleaks.exe" -PathType Leaf)) {
-    if ($gitBashPath) {
-        $processStartInfo = @{
-            FilePath = $gitBashPath.Replace('\', '/')
-            ArgumentList = @("$LOCAL_SHIFTLEFT/gitleaks-install.sh", "$LOCAL_SHIFTLEFT")
-            Wait = $true
-            NoNewWindow = $true
-        }
-        Start-Process @processStartInfo
-    }
-    else {
-        echo "Git Bash for Windows is not installed. gitleaks will be downloaded and installed on the first pre-commit hook call."
-    }
+$gitBashPath = (Get-Command -Name 'git' | Select-Object -ExpandProperty Source `
+    | ForEach-Object { $_.Replace('\cmd\git.exe', '\bin\bash.exe') })
+if ($gitBashPath) {
+    start $gitBashPath @("$LOCAL_SHIFTLEFT/gitleaks-install.sh", "$LOCAL_SHIFTLEFT") -Wait -NoNewWindow
+}
+else {
+    echo "Git Bash for Windows is not found."
+    echo "gitleaks will be downloaded and installed on the first pre-commit hook call."
 }
 
 echo "Bye, thanks! DevSecOps protection installed."
