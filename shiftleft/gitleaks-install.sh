@@ -15,8 +15,10 @@ is_windows() {
     esac
 }
 
-if ! "$SCRIPT_DIR/gitleaks" version
+if ! "$SCRIPT_DIR/gitleaks" version 2>/dev/null
 then
+    echo "gitleaks is not installed or not found."
+
     GITLEAKS_VERSION="8.17.0"
     GITLEAKS_BASE_URL="https://github.com/gitleaks/gitleaks/releases/download/v$GITLEAKS_VERSION"
 
